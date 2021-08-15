@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const auth = require('../shared/index');
 module.exports = function(context, req) {
-  context.log('JavaScript HTTP trigger Azure function for get products processed a request.');
+  context.log('JavaScript HTTP trigger Azure function for get all products processed a request.');
   // Connection URL
 MongoClient.connect(
   process.env.CosmosDBURL,
