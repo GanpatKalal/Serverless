@@ -8,9 +8,10 @@ MongoClient.connect(
   (err, database) => {
     if (err) throw err;
     let product = ({ name, price, description } = req.body);
-    const db = database.db(process.env.CosmosDB);
+    const db = database.db(process.env.CosmosDB);    
 
-    const newProduct = {
+    db.collection('productcatlog').insertOne(
+      {
         name: product.name,
         price: product.price,
         description: product.description,
@@ -18,16 +19,11 @@ MongoClient.connect(
         isDeleted:false,
         deletionDate:null,
         createdAt: Date.now()
-    };
-
-    db.collection('productcatlog').insertOne(
-      {
-        newProduct
       },
       (err, result) => {
         if (err) throw err;
         context.res = {
-          body: newProduct
+          body: result
         };
         database.close();
         context.done();
